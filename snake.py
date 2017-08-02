@@ -71,10 +71,10 @@ turtle.listen()
 def make_food():
     #the sreen positions go from -size/2 to +size 2
     #but we need to make food pieces only appear on the game squares
-    min_x=-int(SIZE_X/2/SQUARE_SIZE)+1
-    max_x=int(SIZE_X/2/SQUARE_SIZE)-1
-    min_y=-int(SIZE_Y/2/SQUARE_SIZE)-1
-    max_y=int(SIZE_Y/2/SQUARE_SIZE)+1
+    min_x=-int(SIZE_X/3/SQUARE_SIZE)+1
+    max_x=int(SIZE_X/3/SQUARE_SIZE)-1
+    min_y=-int(SIZE_Y/3/SQUARE_SIZE)-1
+    max_y=int(SIZE_Y/3/SQUARE_SIZE)+1
     #pick a position that is a random multiple of SQUARE_SIZE.
     food_x=random.randint(min_x,max_x)*SQUARE_SIZE
     food_y=random.randint(min_y,max_y)*SQUARE_SIZE
@@ -124,10 +124,13 @@ def move_snake():
     if snake.pos() in food_pos:
         food_ind=food_pos.index(snake.pos())
         food.clearstamp(food_stamps[food_ind])
+        stamp_list.append(stampID)
         food_pos.pop(food_ind)
         food_stamps.pop(food_ind)
         print("you have eaten the food")
         make_food()
+    if snake.pos() in pos_list[0:-1]:
+        quit()
     
         
         
