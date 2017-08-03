@@ -1,5 +1,6 @@
 import turtle
-import random #We'll need this later in the lab
+import random#We'll need this later in the lab
+import time
 turtle.tracer(1,0) #This helps the turtle move more smoothly
 SIZE_X=800
 SIZE_Y=500
@@ -47,25 +48,30 @@ DOWN_EDGE=-250
 RIGHT_EDGE=400
 LEFT_EDGE=-400
 def up():
-    global direction 
-    direction=UP  
-    print("You pressed the up key!")
+    global direction
+    if direction !=DOWN:
+        direction=UP  
+        print("You pressed the up key!")
 def down():
     global direction 
-    direction=DOWN  
-    print("You pressed the down key!")
+    if direction !=UP:
+        direction=DOWN  
+        print("You pressed the down key!")
 def left():
-    global direction 
-    direction=LEFT  
-    print("You pressed the left key!")
+    global direction
+    if direction !=RIGHT: 
+        direction=LEFT  
+        print("You pressed the left key!")
 def right():
-    global direction 
-    direction=RIGHT 
-    print("You pressed the right key!")
+    global direction
+    if direction !=LEFT: 
+        direction=RIGHT 
+        print("You pressed the right key!")
 turtle.onkeypress(up, UP_ARROW)
 turtle.onkeypress(down, DOWN_ARROW)
 turtle.onkeypress(left, LEFT_ARROW)
 turtle.onkeypress(right, RIGHT_ARROW)
+    
 turtle.listen()
 #def_makefood
 def make_food():
@@ -85,7 +91,11 @@ def make_food():
     food_pos.append((food_x, food_y))
     foodID=food.stamp()
     food_stamps.append(foodID)
+    
+score=0
+
 def move_snake():
+    global score
     my_pos=snake.pos
     x_pos=my_pos()[0]
     y_pos=my_pos()[1]
@@ -96,15 +106,24 @@ def move_snake():
     #the next 3 lines check if the snake is hitting the right edge
     if new_x_pos>=RIGHT_EDGE:
         print("you hit the right edge! game over")
+        print("your score is "+str(score))
+        time.sleep(5)
+
         quit()
     elif new_x_pos<=LEFT_EDGE:
             print("you hit the left edge game over")
+            print("your score is "+str(score))
+            time.sleep(5) 
             quit()
     elif new_y_pos>=UP_EDGE:
             print("you hit the up edge")
+            print("your score is "+str(score))
+            time.sleep(5)
             quit()
     elif new_y_pos<=DOWN_EDGE:
             print("you hit the down edge")
+            print("your score is "+str(score))
+            time.sleep(5)
             quit()
     if direction==RIGHT:
         snake.goto(x_pos+SQUARE_SIZE, y_pos)
@@ -130,10 +149,10 @@ def move_snake():
         food_pos.pop(food_ind)
         food_stamps.pop(food_ind)
         print("you have eaten the food")
-        food_eaten=[]
-        
+        score+=1
         make_food()
     if snake.pos() in pos_list[0:-1]:
+        time.sleep(5)
         quit()
     
         
