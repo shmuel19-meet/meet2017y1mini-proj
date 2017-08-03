@@ -153,9 +153,7 @@ def move_snake():
         make_food()
     if snake.pos() in pos_list[0:-1]:
         time.sleep(5)
-        quit()
-    
-        
+        quit()        
         
         #this if statment might be useful in part 8
     old_stamp=stamp_list.pop(0)
