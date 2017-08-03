@@ -15,6 +15,7 @@ food_stamps = []
 #Set up positions (x,y) of boxes that make up the snake
 snake = turtle.clone()
 snake.shape("square")
+snake.color("red")
 turtle.setup(SIZE_X, SIZE_Y) #Curious? It's the turtle window
 for i in range(START_LENGTH):
     x_pos=snake.pos()[0] #Get x-position with snake.pos()[0]
