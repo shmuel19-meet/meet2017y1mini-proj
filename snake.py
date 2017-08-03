@@ -78,11 +78,13 @@ def make_food():
     #pick a position that is a random multiple of SQUARE_SIZE.
     food_x=random.randint(min_x,max_x)*SQUARE_SIZE
     food_y=random.randint(min_y,max_y)*SQUARE_SIZE
+    while food_pos in pos_list:
+        food_x=random.randint(min_x,max_x)*SQUARE_SIZE
+        food_y=random.randint(min_y,max_y)*SQUARE_SIZE
     food.goto(food_x,food_y)
     food_pos.append((food_x, food_y))
     foodID=food.stamp()
     food_stamps.append(foodID)
-
 def move_snake():
     my_pos=snake.pos
     x_pos=my_pos()[0]
@@ -128,6 +130,8 @@ def move_snake():
         food_pos.pop(food_ind)
         food_stamps.pop(food_ind)
         print("you have eaten the food")
+        food_eaten=[]
+        
         make_food()
     if snake.pos() in pos_list[0:-1]:
         quit()
@@ -138,10 +142,8 @@ def move_snake():
     old_stamp=stamp_list.pop(0)
     snake.clearstamp(old_stamp)
     pos_list.pop(0)
-
     turtle.ontimer(move_snake,TIME_STEP)
 move_snake()
-
 turtle.register_shape("trash.gif")
 food=turtle.clone()
 food.shape("trash.gif")
